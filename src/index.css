@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Special+Elite&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #F8F8F8;
+  --color-secondary: #EFEFED;
+  --color-tertiary: #D6D4D2;
+  --color-text: #232323;
+  --color-muted: #71717a;
+  --color-border: #e4e4e7;
+  --color-accent: #111111;
+}
+
+/* Typography Design System - Tailwind v4
+  Roles: Display, Heading, Paragraph, Label
+  Reusable across projects
+*/
+@layer base {
+  body {
+    font-family: "Courier Prime", monospace;
+    color: var(--color-text);
+  }
+}
+
+@layer utilities {
+
+  .text-display {
+    @apply text-5xl font-normal tracking-wide leading-tight;
+  }
+
+  .text-heading {
+    @apply text-3xl tracking-wide leading-tight;
+  }
+
+  .text-paragraph {
+    @apply text-base leading-relaxed tracking-wide;
+  }
+
+  .text-label {
+    @apply text-sm tracking-wide;
+  }
+
+  /* MUTED VARIANT */
+  .text-muted {
+    @apply text-zinc-500;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@theme {
+  --animate-marquee: marquee 40s linear infinite;
+}
+
+html {
+  scroll-padding-top: var(--nav-h);
+}
+
+/* Recommended usage examples:
+
+<h1 class="text-display">Hero Title</h1>
+<h2 class="text-heading">Section Title</h2>
+<h3 class="text-subheading">Card Title</h3>
+<p class="text-paragraph">Body text</p>
+<span class="text-label">Navbar item</span>
+
+*/
