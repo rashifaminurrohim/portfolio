@@ -8,7 +8,7 @@ export default function TechStack() {
 
       <div className="flex flex-col items-center gap-8 pt-20">
         <h2 className="mb-4 text-xl md:text-3xl lg:text-4xl">
-          Some Technologies I've Worked With
+          Technologies I've Worked With
         </h2>
 
         <div className="w-full overflow-hidden py-6">
@@ -24,8 +24,8 @@ export default function TechStack() {
                 <Icon
                   icon={icon}
                   className="
-                    w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 
-                    grayscale hover:grayscale-0
+                    w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 
+                    lg:grayscale hover:grayscale-0
                     opacity-75 hover:opacity-100
                     hover:drop-shadow-lg
                     hover:scale-130

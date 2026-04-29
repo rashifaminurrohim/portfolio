@@ -55,7 +55,7 @@ export default function NavbarEnvelope() {
     >
       <div
         className={`transition-all duration-300 ${
-          scrolled ? "" : "bg-secondary"
+          scrolled ? "bg-transparent" : "bg-secondary"
         }`}
       >
         <div className="max-w-full mx-auto px-4 py-4">

@@ -4,6 +4,8 @@ import PostMark2 from "../../assets/imigrasi.png";
 import StampFrame from "../StampFrame";
 import { useEffect, useRef, useState } from "react";
 
+const isMobile = window.matchMedia("(pointer: coarse)").matches;
+
 export default function HeroEnvelope() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
@@ -14,9 +16,7 @@ export default function HeroEnvelope() {
 
   const nextImage = () => {
     if (isFading) return;
-
     setIsFading(true);
-
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % heros.length);
       setIsFading(false);
@@ -25,7 +25,6 @@ export default function HeroEnvelope() {
 
   const startSlideShow = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
-
     intervalRef.current = window.setInterval(() => {
       nextImage();
     }, 3000);
@@ -33,6 +32,11 @@ export default function HeroEnvelope() {
 
   const stopSlideshow = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  const handleNextImage = () => {
+    nextImage();
+    startSlideShow();
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -44,14 +48,8 @@ export default function HeroEnvelope() {
     });
   };
 
-  const handleNextImage = () => {
-    nextImage();
-    startSlideShow();
-  };
-
   useEffect(() => {
     startSlideShow();
-
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
@@ -63,84 +61,92 @@ export default function HeroEnvelope() {
         z-10 flex flex-1
         mb-1 -mt-(--nav-h) px-9 pb-9
         border border-t-0 border-x-2 border-b-2 border-zinc-200
-        rounded-b-md rounded-t-[50px]  
-        bg-[repeating-linear-gradient(45deg,#5b7fa6_0_40px,var(--color-secondary)_40px_90px,#c0392b_90px_130px,var(--color-secondary)_130px_180px)] 
+        rounded-b-md rounded-t-[50px]
+        bg-[repeating-linear-gradient(45deg,#5b7fa6_0_40px,var(--color-secondary)_40px_90px,#c0392b_90px_130px,var(--color-secondary)_130px_180px)]
         shadow-md
       "
     >
       <div className="relative flex-1 bg-secondary">
-        {/* Avatar kanan atas*/}
-        <div
-          className="
-            absolute top-[calc(var(--nav-h)+2rem)] right-[4%]
-          "
-        >
+        {/* Avatar kanan atas */}
+        <div className="absolute top-[calc(var(--nav-h)+2rem)] right-[4%]">
           <StampFrame>
             <div
               ref={imgRef}
-              className="relative cursor-none"
+              className={`relative ${isMobile ? "cursor-pointer" : "cursor-none"}`}
               onMouseEnter={() => {
+                if (isMobile) return;
                 setIsHovered(true);
                 stopSlideshow();
               }}
               onMouseLeave={() => {
+                if (isMobile) return;
                 setIsHovered(false);
                 startSlideShow();
               }}
-              onMouseMove={handleMouseMove}
+              onMouseMove={(e) => {
+                if (isMobile) return;
+                handleMouseMove(e);
+              }}
+              onTouchStart={() => stopSlideshow()}
+              onTouchEnd={() => handleNextImage()}
               onClick={handleNextImage}
             >
               {/* Foto stamp - selalu tampil */}
               <img
                 src={heros[currentIndex].stamp}
-                onClick={handleNextImage}
-                className={`h-45 md:h-55 lg:h-65 object-cover transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
-              />
-
-              {/* Foto original - di atas stamp, di-mask dengan radial gradient */}
-              <img
-                src={heros[currentIndex].original}
                 className={`
-                  absolute inset-0
                   h-45 md:h-55 lg:h-65 object-cover
                   transition-opacity duration-300
                   ${isFading ? "opacity-0" : "opacity-100"}
                 `}
-                style={{
-                  maskImage: isHovered
-                    ? `radial-gradient(circle 100px at ${mousePos.x}px ${mousePos.y}px, black 50%, transparent 71%)`
-                    : "radial-gradient(circle 0px at 50% 50%, black 0%, transparent 0%)",
-                  WebkitMaskImage: isHovered
-                    ? `radial-gradient(circle 100px at ${mousePos.x}px ${mousePos.y}px, black 50%, transparent 71%)`
-                    : "radial-gradient(circle 0px at 50% 50%, black 0%, transparent 0%)",
-                  transition: "mask-image 0.1s ease, opacity 0.3s",
-                }}
               />
+
+              {/* Foto original - hanya di desktop */}
+              {!isMobile && (
+                <img
+                  src={heros[currentIndex].original}
+                  className={`
+                    absolute inset-0
+                    h-45 md:h-55 lg:h-65 object-cover
+                    transition-opacity duration-300
+                    ${isFading ? "opacity-0" : "opacity-100"}
+                  `}
+                  style={{
+                    maskImage: isHovered
+                      ? `radial-gradient(circle 100px at ${mousePos.x}px ${mousePos.y}px, black 50%, transparent 71%)`
+                      : "radial-gradient(circle 0px at 50% 50%, black 0%, transparent 0%)",
+                    WebkitMaskImage: isHovered
+                      ? `radial-gradient(circle 100px at ${mousePos.x}px ${mousePos.y}px, black 50%, transparent 71%)`
+                      : "radial-gradient(circle 0px at 50% 50%, black 0%, transparent 0%)",
+                    transition: "opacity 0.3s",
+                  }}
+                />
+              )}
             </div>
           </StampFrame>
+
           <img
             src={PostMark}
-            alt="Frame"
+            alt=""
             className="
               absolute top-[69%] right-[55%]
               h-25 md:h-30 lg:h-35
-              rotate-354 
-              object-cover 
+              rotate-354 object-cover
               pointer-events-none
             "
           />
           <img
             src={PostMark2}
-            alt="Frame"
+            alt=""
             className="
               absolute bottom-[70%] left-[50%]
               h-15 md:h-20 lg:h-25
-              rotate-360 
-              object-cover 
+              rotate-360 object-cover
               pointer-events-none
             "
           />
         </div>
+
         {/* Nama & Okupasi - kiri bawah */}
         <div
           className="
@@ -152,9 +158,8 @@ export default function HeroEnvelope() {
           {/* NAME */}
           <div className="flex flex-col gap-1">
             <p className="text-xs md:text-sm lg:text-md tracking-[0.3em] text-muted font-bold">
-              Name:
+              NAME:
             </p>
-
             <h1 className="text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-tight">
               M Rashif Aminurrohim
             </h1>
