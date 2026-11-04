@@ -12,7 +12,7 @@ export const experiences = [
     period: "Feb — Jul 2025",
   },
   {
-    role: "Operations Assistant Intern",
+    role: "Data Management Intern",
     place: "PT Taspen Persero Bandung",
     desc: "Performed document digitization, assisted in claims processing, and managed archival records.",
     period: "Oct — Feb 2025",

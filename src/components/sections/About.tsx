@@ -19,16 +19,15 @@ export default function About() {
 
             <div className="mx-3 text-paragraph text-zinc-600">
               <p>
-                Hi! I’m Rashif, a software developer with a strong interest in
-                mobile and web development. I enjoy building clean, scalable
-                applications and transforming ideas into structured,
-                user-friendly solutions. Currently, I’m sharpening my skills in
-                modern web technologies while continuing to deepen my experience
-                in mobile development. I’m particularly passionate about clean
-                architecture, maintainable code, and crafting interfaces that
-                feel simple, intuitive, and purposeful. I’m also open to
-                internships, freelance projects, and junior developer
-                opportunities.
+                Hi! I'm Rashif, an Informatics graduate and aspiring software
+                developer with a focus on mobile development. I started with
+                Android and Kotlin through Bangkit Academy, where I built apps
+                with MVVM architecture and REST API integration, and I'm now
+                learning Dart and Flutter. I also have experience in web
+                development and cloud computing. I care about clean
+                architecture, maintainable code, and interfaces that feel simple
+                and intuitive. I'm open to internships, freelance projects, and
+                junior developer opportunities.
               </p>
               <br />
               <p>
@@ -39,7 +38,7 @@ export default function About() {
             </div>
 
             <a
-              href="/cv-muhammad-rashif-a.pdf"
+              href="/cv-rash-mobile.pdf"
               download
               className="bg-text mt-12 px-5 py-4 rounded-full border border-black border-b-2 shadow-sm transition-all active:translate-y-px active:border-b-2 active:shadow-none"
             >

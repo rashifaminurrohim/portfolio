@@ -7,6 +7,7 @@ import Project_Mobile_Story from "../assets/project-mobile-story.png";
 import Project_Mobile_Asclepius from "../assets/project-mobile-asclepius.png";
 import Project_Mobile_GithubApp from "../assets/project-mobile-githubapp.png";
 import Project_Mobile_UTS from "../assets/project-mobile-uts.png";
+import Project_Mobile_HiredStep from "../assets/project-hiredstep.png";
 
 export type Project = {
   title: string;
@@ -19,6 +20,15 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    title: "HiredStep",
+    subtitle: "Flutter Job Application Tracker",
+    image: Project_Mobile_HiredStep,
+    desc: "HiredStep is an Android application built with Flutter that helps users track internship and job applications in one place. Users can record each application, update its status, and review a dated history of every step in the process. This project is currently in development and focuses on clean MVVM architecture, local data storage, REST API integration, and testing.",
+    demo: "",
+    source: "https://github.com/rashifaminurrohim/hiredstep.git",
+    type: "mobile",
+  },
   {
     title: "Strash",
     subtitle: "AI-powered waste classification website",
